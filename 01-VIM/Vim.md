@@ -2,6 +2,16 @@
 
 Vim游戏：https://vim-adventures.com/
 
+本文参考：http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/
+
+中文翻译：https://blog.csdn.net/niushuai666/article/details/7275406
+
+
+
+Ubuntu vim doc路径 
+
+查看vim 帮助 `man vim`   `vimtutor`    `:help usr_02.txt`    
+
 
 
 ### 文件
@@ -60,7 +70,7 @@ Normal模式（Esc）
 
 `g_` 本行最后一个不是blank字符的位置
 
-`gg` 文件第一行第一个不是blank字符
+`gg` 文件第一行第一个不是blank字符，等同于1G
 
 `G`  文件最后一行第一个不是blank字符
 
@@ -98,7 +108,7 @@ Normal模式（Esc）
 
 `O`  在当前行前插入一个新行
 
-`cw` 替换光标所在位置到单词结尾的字符（n>=1个空格算一个单词）
+`cw` 替换光标所在位置到单词结尾的字符（n>=1个空格算一个单词） cursor to word
 
 `C`  替换光标所在位置到行尾的字符
 
@@ -114,13 +124,17 @@ Normal模式（Esc）
 
 **复制**
 
-`yy`  复制光标当前行
+
+
+`yy`  复制光标当前行，等同于`ddP`
 
 `nyy` 复制当光标前行向下的n行
 
 **粘贴**
 
 `p`   粘贴到光标当前行的下一行
+
+`P`   粘贴到光标当前行的上一行
 
 
 
