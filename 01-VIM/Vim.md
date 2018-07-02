@@ -1,5 +1,9 @@
 # Vim常用技巧
 
+![vim编辑器](imgs/vim编辑器.png)
+
+
+
 Vim游戏：https://vim-adventures.com/
 
 本文参考：http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/
