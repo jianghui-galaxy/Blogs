@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://www.cnblogs.com/baierfa/p/6689107.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+<title>centos7 hue安装 - 改进的拜耳法 - 博客园</title>
+<meta property="og:description" content="下载安装包 git clone https://github.com/cloudera/hue.git cd hue 依赖安装包： CentOS: ant asciidoc cyrus-sasl-de">
+<link type="text/css" rel="stylesheet" href="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/bundle-MountainInk.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/bundle-MountainInk-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/baierfa/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/baierfa/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/baierfa/wlwmanifest.xml">
+<script src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/f.txt"></script><script src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/amp4ads-host-v0.js"></script><script src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/pubads_impl_rendering_273.js"></script><script async="" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/analytics.js"></script><script src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">var currentBlogApp = 'baierfa', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<link rel="preload" href="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/f(1).txt" as="script"><script type="text/javascript" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/f(1).txt"></script><script src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/pubads_impl_273.js" async=""></script></head>
+<body style="">
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/baierfa/"><img id="blogLogo" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/baierfa/">改进的拜耳法</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/baierfa/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%94%B9%E8%BF%9B%E7%9A%84%E6%8B%9C%E8%80%B3%E6%B3%95">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/baierfa/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/baierfa/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 10&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 3</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/baierfa/p/6689107.html">centos7 hue安装</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><style>p.MsoNormal { margin: 0pt; margin-bottom: .0001pt; text-align: justify; font-family: Calibri; font-size: 10.5000pt }
+h1 { margin-top: 5.0000pt; margin-bottom: 5.0000pt; text-align: left; font-family: 宋体; font-weight: bold; font-size: 24.0000pt }
+span.10 { font-family: "Times New Roman" }
+span.15 { font-family: "Times New Roman"; color: rgb(0,0,255); text-decoration: underline }
+span.16 { font-family: "Courier New"; font-size: 10.0000pt }
+p.pre { margin: 0pt; margin-bottom: .0001pt; text-align: left; font-family: "Courier New"; font-size: 10.0000pt }
+span.msoIns { text-decoration: underline; color: blue }
+span.msoDel { text-decoration: line-through; color: red }
+table.MsoNormalTable { font-family: "Times New Roman"; font-size: 10.0000pt }
+table.MsoTableGrid { text-align: justify; font-family: "Times New Roman"; font-size: 10.0000pt }
+div.Section0 { }</style>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">下载安装包</span></span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">git clone https://github.com/cloudera/hue.git</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">cd hue</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">依赖安装包：</span></span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">CentOS:</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">ant</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">asciidoc</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">cyrus-sasl-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">cyrus-sasl-gssapi</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">gcc</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">gcc-c++</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">krb5-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">libtidy (for unit tests only)</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">libxml2-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">libxslt-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">mvn (from&nbsp;</span><span style="font-family: Calibri; font-size: 10.5000pt">maven2</span><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;package or tarball)</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">mysql</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">mysql-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">openldap-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">python-devel</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">python-simplejson</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">sqlite-devel</span></p>
+<p class="pre" style="margin-top: 0.0000pt; margin-bottom: 12.0000pt; margin-left: 0.0000pt; text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; background: #f6f8fa"><span class="16" style="font-family: SFMono-Regular; color: #24292e; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 10.0000pt; background: #f6f8fa">&nbsp;</span></p>
+<p class="pre" style="margin-top: 0.0000pt; margin-bottom: 12.0000pt; margin-left: 0.0000pt; text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; background: #f6f8fa"><span class="16" style="font-family: SFMono-Regular; color: #24292e; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 10.0000pt; background: #f6f8fa">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150209844-427796798.jpg" alt="" width="554" height="207"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="pre" style="margin-top: 0.0000pt; margin-bottom: 12.0000pt; margin-left: 0.0000pt; text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; background: #f6f8fa"><span class="16" style="font-family: SFMono-Regular; color: #24292e; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 10.0000pt; background: #f6f8fa">make apps</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150210454-1890165287.jpg" alt="" width="554" height="54"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="pre" style="margin-top: 0.0000pt; margin-bottom: 12.0000pt; margin-left: 0.0000pt; text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; background: #f6f8fa"><span class="16" style="font-family: SFMono-Regular; color: #24292e; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 10.0000pt; background: #f6f8fa">build/env/bin/hue runserver</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">Mvn<span style="font-family: 微软雅黑">安装</span></span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">sudo yum install -y apache-maven</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">mvn --version</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">这个错误很莫名其妙</span> &nbsp;<span style="font-family: 微软雅黑">没什么关系：本人解决方式是更换到</span>root<span style="font-family: 微软雅黑">用户下进行的重新编译就可以了</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150211313-105036211.jpg" alt="" width="554" height="333"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">成功编译</span></span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150211813-169931087.jpg" alt="" width="553" height="263"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">复制一份配置文件</span></span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150212360-1882738365.jpg" alt="" width="554" height="51"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">在这里更改访问的端口号和访问地址</span></span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150212876-73517314.jpg" alt="" width="553" height="398"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">访问时直接输入</span>IP<span style="font-family: 微软雅黑">地址和端口号</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">例如本人使用的是</span> sp-06:8000</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">未更改状况是</span>sp-06:8888</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150213547-1052252663.jpg" alt="" width="554" height="231"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150213876-239291457.jpg" alt="" width="554" height="500"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150214657-1865821064.jpg" alt="" width="554" height="556"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">错误解决</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">因为本人使用</span>hadoop<span style="font-family: 微软雅黑">用户启动</span></span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse; width: 426.1000pt">
+<tbody>
+<tr>
+<td style="width: 426.1000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border: 1.0000pt solid windowtext" valign="top" width="568">
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">Traceback (most recent call last):</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "build/env/bin/supervisor", line 9, in &lt;module&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;load_entry_point('desktop==3.12.0', 'console_scripts', 'supervisor')()</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/home/hadoop/hue/desktop/core/src/desktop/supervisor.py", line 358, in main</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;_init_log(log_dir)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/home/hadoop/hue/desktop/core/src/desktop/supervisor.py", line 294, in _init_log</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;desktop.log.basic_logging(PROC_NAME, log_dir)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/home/hadoop/hue/desktop/core/src/desktop/log/__init__.py", line 149, in basic_logging</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;logging.config.fileConfig(log_conf)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/usr/lib64/python2.7/logging/config.py", line 78, in fileConfig</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;handlers = _install_handlers(cp, formatters)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/usr/lib64/python2.7/logging/config.py", line 156, in _install_handlers</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;h = klass(*args)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/usr/lib64/python2.7/logging/handlers.py", line 117, in __init__</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;BaseRotatingHandler.__init__(self, filename, mode, encoding, delay)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/usr/lib64/python2.7/logging/handlers.py", line 64, in __init__</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;logging.FileHandler.__init__(self, filename, mode, encoding, delay)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/usr/lib64/python2.7/logging/__init__.py", line 902, in __init__</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;StreamHandler.__init__(self, self._open())</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;File "/usr/lib64/python2.7/logging/__init__.py", line 925, in _open</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;stream = open(self.baseFilename, self.mode)</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">IOError: [Errno 13] Permission denied: '/home/hadoop/hue/logs/supervisor.log'</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150215157-1428220758.jpg" alt="" width="554" height="267"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">之前因为格式需要设置了</span> chown -R hue.hue /home/hadoop/hue</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">将全部权限设置给了</span>hue<span style="font-family: 微软雅黑">用户</span></span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150216282-2053702854.jpg" alt="" width="554" height="377"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">解决办法：、</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">根据</span>IOError: [Errno 13] Permission denied: '/home/hadoop/hue/logs/supervisor.log'</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150216844-696402089.jpg" alt="" width="422" height="56"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">将</span>/home/hadoop/hue/logs/supervisor.log'</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">的权限更改为</span>hadoop</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150217954-1245521493.jpg" alt="" width="554" height="301"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">再次启动：</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">build/env/bin/supervisor</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150218688-1090635560.jpg" alt="" width="554" height="444"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">打开界面：</span>sp-06:8000</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">报错</span></span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150220454-196939883.jpg" alt="" width="554" height="402"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse; width: 426.1000pt">
+<tbody>
+<tr>
+<td style="width: 426.1000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border: 1.0000pt solid windowtext" valign="top" width="568">
+<p style="text-indent: 0.0000pt; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 24.0000pt">OperationalError at /accounts/login/</span></p>
+<p class="pre" style="margin-top: 7.5000pt; margin-right: 0.0000pt; margin-bottom: 7.5000pt; margin-left: 0.0000pt; text-indent: 0.0000pt"><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 15.5000pt">unable to open database file</span></p>
+<table class="MsoNormalTable" style="border-collapse: collapse; width: 1397.2500pt; margin-left: 3.1500pt">
+<tbody>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Request Method:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">GET</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Request URL:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">http://sp-06:8000/accounts/login/?next=/</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Django Version:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">1.6.10</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Exception Type:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">OperationalError</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Exception Value:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">unable to open database file</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Exception Location:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">/home/hadoop/hue/build/env/lib/python2.7/site-packages/Django-1.6.10-py2.7.egg/django/db/backends/sqlite3/base.py in execute, line 452</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Python Executable:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">/home/hadoop/hue/build/env/bin/python2.7</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Python Version:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">2.7.5</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Python Path:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">['/home/hadoop/hue/build/env/bin',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/about/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/beeswax/gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/beeswax/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/filebrowser/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/hbase/gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/hbase/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/help/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/impala/gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/impala/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/jobbrowser/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/jobsub/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/metastore/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/oozie/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/pig/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/proxy/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/rdbms/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/search/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/security/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/spark/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/sqoop/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/useradmin/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/zookeeper/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_openid-2.2.5-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/backports.csv-1.0.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Django-1.6.10-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/MarkupSafe-0.9.3-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/kazoo-2.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pycparser-2.14-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pyOpenSSL-0.15.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/enum-0.4.4-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pytz-2015.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/urllib2_kerberos-0.1.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pyasn1-0.1.8-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/argparse-1.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/BabelDjango-0.2.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/elementtree-1.2.6.post20050316-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Mako-0.8.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/djangosaml2-0.13.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/httplib2-0.8-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_axes-1.5.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_auth_ldap-1.2.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_extensions-1.5.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/kerberos-1.1.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Markdown-2.0.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Paste-2.0.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/boto-2.42.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/cffi-1.5.2-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/rsa-3.4.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pycrypto-2.6.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_openid_auth-0.5-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/jdcal-1.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/cryptography-1.3.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/parquet-1.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/navoptapi-0+untagged.3628.g9db772a.dirty-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pam-0.1.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/six-1.9.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_daemon-1.5.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/simplejson-2.0.9-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_ldap-2.3.13-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pysaml2-2.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/oauth2-1.5.211-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pyformance-0.3.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Babel-0.9.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_nose-1.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/avro-1.7.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/configobj-4.6.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pytidylib-0.2.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/requests-2.10.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pysqlite-2.5.5-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/South-1.0.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ply-3.9-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ordereddict-1.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/lockfile-0.8-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_dateutil-2.4.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/importlib-1.0.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ndg_httpsclient-0.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/openpyxl-2.3.0b2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/lxml-3.3.6-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/guppy-0.1.10-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/thriftpy-0.3.9-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/tablib-0.10.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/requests_kerberos-0.6.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/sqlparse-0.2.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/asn1crypto-0.22.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/thrift-0.9.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/sasl-0.1.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Pygments-1.3.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/py4j-0.9-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/core/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/aws/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/hadoop/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/indexer/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/liboauth/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/liboozie/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libopenid/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/librdbms/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsaml/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsentry/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsolr/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libzookeeper/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/metadata/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/notebook/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/dashboard/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ipdb-0.1dev_r1716-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ipython-0.10-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/nose-0.11.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/coverage-3.7.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/nosetty-0.4-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Werkzeug-0.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/windmill-1.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pylint-0.28.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/logilab_astng-0.24.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/logilab_common-1.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python27.zip',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/plat-linux2',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/lib-tk',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/lib-old',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/lib-dynload',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib64/python2.7',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib/python2.7',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib64/python2.7/site-packages',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib64/python2.7/site-packages/gtk-2.0',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib/python2.7/site-packages',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsentry/src/libsentry/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/beeswax/src/beeswax/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/hbase/src/hbase/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/impala/src/impala/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/jobbrowser/src/jobbrowser/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/proxy/src/proxy/../../gen-py']</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Server time:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">Thu, 6 Apr 2017 20:30:02 -0700</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">根据所抛异常是因为</span>MySQL<span style="font-family: 微软雅黑">数据库的问题</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">本人使用的系统是</span>centos7 <span style="font-family: 微软雅黑">与原来安装</span><span style="font-family: Calibri">MySQL</span><span style="font-family: 微软雅黑">数据库的方式不一样猜测可能是这里的问题</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">重新安装</span>MySQL<span style="font-family: 微软雅黑">数据库</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">1<span style="font-family: 微软雅黑">、配置</span><span style="font-family: Calibri">YUM</span><span style="font-family: 微软雅黑">源</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">在</span></span><span><a title="MySQL知识库" href="http://lib.csdn.net/base/14"><span style="font-family: 微软雅黑; font-size: 10.5000pt">MySQL</span></a></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">官网中下载</span>YUM<span style="font-family: 微软雅黑">源</span><span style="font-family: Calibri">rpm</span><span style="font-family: 微软雅黑">安装包：</span></span><span><a href="http://dev.mysql.com/downloads/repo/yum/"><span style="font-family: 微软雅黑; font-size: 10.5000pt">http://dev.mysql.com/downloads/repo/yum/</span></a></span><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><br></span><span><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150221860-525059322.jpg" alt="" width="1583" height="399"></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt"># <span style="font-family: 微软雅黑">下载</span><span style="font-family: Calibri">mysql</span><span style="font-family: 微软雅黑">源安装包</span><span style="font-family: Calibri">shell&gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm# </span><span style="font-family: 微软雅黑">安装</span><span style="font-family: Calibri">mysql</span><span style="font-family: 微软雅黑">源</span><span style="font-family: Calibri">shell&gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">检查</span>mysql<span style="font-family: 微软雅黑">源是否安装成功</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; yum repolist enabled | grep "mysql.*-community.*"</span></p>
+<p class="MsoNormal" style="text-align: left"><span><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150223360-579457973.jpg" alt="" width="675" height="95"></span><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><br></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">看到上图所示表示安装成功</span></span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t1"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt">2<span style="font-family: 微软雅黑">、安装</span><span style="font-family: Calibri">MySQL</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; yum install mysql-community-server</span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t2"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt">3<span style="font-family: 微软雅黑">、启动</span><span style="font-family: Calibri">MySQL</span><span style="font-family: 微软雅黑">服务</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; systemctl start mysqld</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">查看</span>MySQL<span style="font-family: 微软雅黑">的启动状态</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; systemctl status mysqld</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">● mysqld.service - MySQL Server</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;Loaded: loaded (/usr/lib/systemd/system/mysqld.service; disabled; vendor preset: disabled)</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;Active: active (running) since <span style="font-family: 微软雅黑">五 </span><span style="font-family: Calibri">2016-06-24 04:37:37 CST; 35min ago</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;Main PID: 2888 (mysqld)</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;CGroup: /system.slice/mysqld.service</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─2888 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">6<span style="font-family: 微软雅黑">月 </span><span style="font-family: Calibri">24 04:37:36 localhost.localdomain systemd[1]: Starting MySQL Server...6</span><span style="font-family: 微软雅黑">月 </span><span style="font-family: Calibri">24 04:37:37 localhost.localdomain systemd[1]: Started MySQL Server.</span></span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t3"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt">4<span style="font-family: 微软雅黑">、开机启动</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; systemctl enable mysqldshell&gt; systemctl daemon-reload</span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t4"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt">5<span style="font-family: 微软雅黑">、修改</span><span style="font-family: Calibri">root</span><span style="font-family: 微软雅黑">默认密码</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">mysql<span style="font-family: 微软雅黑">安装完成之后，在</span><span style="font-family: Calibri">/var/log/mysqld.log</span><span style="font-family: 微软雅黑">文件中给</span><span style="font-family: Calibri">root</span><span style="font-family: 微软雅黑">生成了一个默认密码。通过下面的方式找到</span><span style="font-family: Calibri">root</span><span style="font-family: 微软雅黑">默认密码，然后登录</span><span style="font-family: Calibri">mysql</span><span style="font-family: 微软雅黑">进行修改：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; grep 'temporary password' /var/log/mysqld.log</span></p>
+<p class="MsoNormal" style="text-align: left"><span><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150224954-454382655.jpg" alt="" width="835" height="56"></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">shell&gt; mysql -uroot -p</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!'; </span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">或者</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">mysql&gt; set password for 'root'@'localhost'=password('MyNewPass4!'); </span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">注意：</span>mysql5.7<span style="font-family: 微软雅黑">默认安装了密码安全检查插件（</span><span style="font-family: Calibri">validate_password</span><span style="font-family: 微软雅黑">），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于</span><span style="font-family: Calibri">8</span><span style="font-family: 微软雅黑">位。否则会提示</span><span style="font-family: Calibri">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</span><span style="font-family: 微软雅黑">错误，如下图所示：</span><span style="font-family: Calibri">&nbsp;</span></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><br></span><span><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150225860-406727815.jpg" alt="" width="664" height="53"></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">通过</span>msyql<span style="font-family: 微软雅黑">环境变量可以查看密码策略的相关信息：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">mysql&gt; show variables like '%password%';</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt"><br></span><span><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150226860-1611752074.jpg" alt="" width="484" height="368"></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><br></span><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp; validate_password_policy<span style="font-family: 微软雅黑">：密码策略，默认为</span><span style="font-family: Calibri">MEDIUM</span><span style="font-family: 微软雅黑">策略</span><span style="font-family: Calibri">&nbsp; validate_password_dictionary_file</span><span style="font-family: 微软雅黑">：密码策略文件，策略为</span><span style="font-family: Calibri">STRONG</span><span style="font-family: 微软雅黑">才需要</span><span style="font-family: Calibri">&nbsp; validate_password_length</span><span style="font-family: 微软雅黑">：密码最少长度</span><span style="font-family: Calibri">&nbsp; validate_password_mixed_case_count</span><span style="font-family: 微软雅黑">：大小写字符长度，至少</span><span style="font-family: Calibri">1</span><span style="font-family: 微软雅黑">个</span><span style="font-family: Calibri">&nbsp; validate_password_number_count </span><span style="font-family: 微软雅黑">：数字至少</span><span style="font-family: Calibri">1</span><span style="font-family: 微软雅黑">个</span><span style="font-family: Calibri">&nbsp; validate_password_special_char_count</span><span style="font-family: 微软雅黑">：特殊字符至少</span><span style="font-family: Calibri">1</span><span style="font-family: 微软雅黑">个</span><span style="font-family: Calibri">&nbsp;&nbsp;</span><span style="font-family: 微软雅黑">上述参数是默认策略</span><span style="font-family: Calibri">MEDIUM</span><span style="font-family: 微软雅黑">的密码检查规则。</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">共有以下几种密码策略：</span></span></p>
+<table class="MsoNormalTable" style="border-collapse: collapse; width: 709.5000pt">
+<tbody>
+<tr>
+<td style="width: 121.5500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; background: #ffffff; border: 1.0000pt solid #eeeeee" valign="top" width="162">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">策略</span></p>
+</td>
+<td style="width: 587.9500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: none; border-right: 1.0000pt solid #eeeeee; border-top: 1.0000pt solid #eeeeee; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="783">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">检查规则</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 121.5500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: 1.0000pt solid #eeeeee; border-right: 1.0000pt solid #eeeeee; border-top: none; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="162">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">0 or LOW</span></p>
+</td>
+<td style="width: 587.9500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: none; border-right: 1.0000pt solid #eeeeee; border-top: none; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="783">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">Length</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 121.5500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: 1.0000pt solid #eeeeee; border-right: 1.0000pt solid #eeeeee; border-top: none; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="162">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">1 or MEDIUM</span></p>
+</td>
+<td style="width: 587.9500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: none; border-right: 1.0000pt solid #eeeeee; border-top: none; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="783">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">Length; numeric, lowercase/uppercase, and special characters</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 121.5500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: 1.0000pt solid #eeeeee; border-right: 1.0000pt solid #eeeeee; border-top: none; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="162">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">2 or STRONG</span></p>
+</td>
+<td style="width: 587.9500pt; padding: 6.0000pt 6.0000pt 6.0000pt 6.0000pt; border-left: none; border-right: 1.0000pt solid #eeeeee; border-top: none; border-bottom: 1.0000pt solid #eeeeee; background: #ffffff" valign="top" width="783">
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">Length; numeric, lowercase/uppercase, and special characters; dictionary file</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">MySQL<span style="font-family: 微软雅黑">官网密码策略详细说明：</span></span><span><a href="https://www.cnblogs.com/baierfa/p/6689107.html#sysvar_validate_password_policy"><span style="font-family: 微软雅黑; font-size: 10.5000pt">http://dev.mysql.com/doc/refman/5.7/en/validate-password-options-variables.html#sysvar_validate_password_policy</span></a></span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t5"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">修改密码策略</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">在</span>/etc/my.cnf<span style="font-family: 微软雅黑">文件添加</span><span style="font-family: Calibri">validate_password_policy</span><span style="font-family: 微软雅黑">配置，指定密码策略</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt"># <span style="font-family: 微软雅黑">选择</span><span style="font-family: Calibri">0</span><span style="font-family: 微软雅黑">（</span><span style="font-family: Calibri">LOW</span><span style="font-family: 微软雅黑">），</span><span style="font-family: Calibri">1</span><span style="font-family: 微软雅黑">（</span><span style="font-family: Calibri">MEDIUM</span><span style="font-family: 微软雅黑">），</span><span style="font-family: Calibri">2</span><span style="font-family: 微软雅黑">（</span><span style="font-family: Calibri">STRONG</span><span style="font-family: 微软雅黑">）其中一种，选择</span><span style="font-family: Calibri">2</span><span style="font-family: 微软雅黑">需要提供密码字典文件</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">validate_password_policy=0</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">如果不需要密码策略，添加</span>my.cnf<span style="font-family: 微软雅黑">文件中添加如下配置禁用即可：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">validate_password = off</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">重新启动</span>mysql<span style="font-family: 微软雅黑">服务使配置生效：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">systemctl restart mysqld</span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t6"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt">6<span style="font-family: 微软雅黑">、添加远程登录用户</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">默认只允许</span>root<span style="font-family: 微软雅黑">帐户在本地登录，如果要在其它机器上连接</span><span style="font-family: Calibri">mysql</span><span style="font-family: 微软雅黑">，必须修改</span><span style="font-family: Calibri">root</span><span style="font-family: 微软雅黑">允许远程连接，或者添加一个允许远程连接的帐户，为了安全起见，我添加一个新的帐户：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'yangxin'@'%' IDENTIFIED BY 'Yangxin0917!' WITH GRANT OPTION;</span></p>
+<p class="MsoNormal" style="text-align: left"><a name="t7"></a><span style="font-family: 微软雅黑; font-size: 10.5000pt">7<span style="font-family: 微软雅黑">、配置默认编码为</span><span style="font-family: Calibri">utf8</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">修改</span>/etc/my.cnf<span style="font-family: 微软雅黑">配置文件，在</span><span style="font-family: Calibri">[mysqld]</span><span style="font-family: 微软雅黑">下添加编码配置，如下所示：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: Calibri; font-size: 10.5000pt">[mysqld]character_set_server=utf8</span><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family: Calibri; font-size: 10.5000pt">init_connect='SET NAMES utf8'</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">重新启动</span>mysql<span style="font-family: 微软雅黑">服务，查看</span></span><span><a title="MySQL知识库" href="http://lib.csdn.net/base/14"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">数据库</span></span></a></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">默认编码如下所示：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150227657-2124134925.jpg" alt="" width="495" height="270"></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><br></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">安装之后重新启动</span></span></p>
+<p class="MsoNormal" style="text-align: left"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150228266-794894333.jpg" alt="" width="554" height="346"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">几面再次登录：</span></span></p>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">报错和原来一样</span></span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse; width: 426.1000pt">
+<tbody>
+<tr>
+<td style="width: 426.1000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border: 1.0000pt solid windowtext" valign="top" width="568">
+<p style="text-indent: 0.0000pt; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 24.0000pt">OperationalError at /accounts/login/</span></p>
+<p class="pre" style="margin-top: 7.5000pt; margin-right: 0.0000pt; margin-bottom: 7.5000pt; margin-left: 0.0000pt; text-indent: 0.0000pt"><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 15.5000pt">unable to open database file</span></p>
+<table class="MsoNormalTable" style="border-collapse: collapse; width: 1397.2500pt; margin-left: 3.1500pt">
+<tbody>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Request Method:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">GET</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Request URL:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">http://sp-06:8000/accounts/login/?next=/</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Django Version:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">1.6.10</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Exception Type:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">OperationalError</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Exception Value:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">unable to open database file</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Exception Location:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">/home/hadoop/hue/build/env/lib/python2.7/site-packages/Django-1.6.10-py2.7.egg/django/db/backends/sqlite3/base.py in execute, line 452</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Python Executable:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">/home/hadoop/hue/build/env/bin/python2.7</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Python Version:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">2.7.5</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Python Path:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">['/home/hadoop/hue/build/env/bin',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/about/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/beeswax/gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/beeswax/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/filebrowser/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/hbase/gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/hbase/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/help/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/impala/gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/impala/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/jobbrowser/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/jobsub/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/metastore/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/oozie/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/pig/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/proxy/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/rdbms/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/search/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/security/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/spark/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/sqoop/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/useradmin/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/zookeeper/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_openid-2.2.5-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/backports.csv-1.0.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Django-1.6.10-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/MarkupSafe-0.9.3-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/kazoo-2.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pycparser-2.14-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pyOpenSSL-0.15.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/enum-0.4.4-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pytz-2015.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/urllib2_kerberos-0.1.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pyasn1-0.1.8-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/argparse-1.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/BabelDjango-0.2.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/elementtree-1.2.6.post20050316-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Mako-0.8.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/djangosaml2-0.13.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/httplib2-0.8-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_axes-1.5.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_auth_ldap-1.2.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_extensions-1.5.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/kerberos-1.1.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Markdown-2.0.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Paste-2.0.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/boto-2.42.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/cffi-1.5.2-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/rsa-3.4.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pycrypto-2.6.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_openid_auth-0.5-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/jdcal-1.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/cryptography-1.3.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/parquet-1.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/navoptapi-0+untagged.3628.g9db772a.dirty-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pam-0.1.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/six-1.9.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_daemon-1.5.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/simplejson-2.0.9-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_ldap-2.3.13-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pysaml2-2.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/oauth2-1.5.211-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pyformance-0.3.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Babel-0.9.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/django_nose-1.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/avro-1.7.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/configobj-4.6.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pytidylib-0.2.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/requests-2.10.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pysqlite-2.5.5-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/South-1.0.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ply-3.9-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ordereddict-1.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/lockfile-0.8-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/python_dateutil-2.4.2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/importlib-1.0.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ndg_httpsclient-0.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/openpyxl-2.3.0b2-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/lxml-3.3.6-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/guppy-0.1.10-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/thriftpy-0.3.9-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/tablib-0.10.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/requests_kerberos-0.6.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/sqlparse-0.2.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/asn1crypto-0.22.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/thrift-0.9.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/sasl-0.1.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Pygments-1.3.1-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/py4j-0.9-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/core/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/aws/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/hadoop/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/indexer/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/liboauth/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/liboozie/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libopenid/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/librdbms/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsaml/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsentry/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsolr/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libzookeeper/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/metadata/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/notebook/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/dashboard/src',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ipdb-0.1dev_r1716-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/ipython-0.10-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/nose-0.11.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/coverage-3.7.1-py2.7-linux-x86_64.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/nosetty-0.4-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/Werkzeug-0.6-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/windmill-1.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/pylint-0.28.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/logilab_astng-0.24.3-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages/logilab_common-1.4.0-py2.7.egg',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python27.zip',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/plat-linux2',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/lib-tk',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/lib-old',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib64/python2.7/lib-dynload',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib64/python2.7',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib/python2.7',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/build/env/lib/python2.7/site-packages',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib64/python2.7/site-packages',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib64/python2.7/site-packages/gtk-2.0',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/usr/lib/python2.7/site-packages',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/desktop/libs/libsentry/src/libsentry/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/beeswax/src/beeswax/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/hbase/src/hbase/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/impala/src/impala/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/jobbrowser/src/jobbrowser/../../gen-py',</span></p>
+<p class="pre" style="margin: 0.0000pt"><span style="font-family: &quot;Courier New&quot;; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 9.0000pt">&nbsp;'/home/hadoop/hue/apps/proxy/src/proxy/../../gen-py']</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 126.0000pt; padding: 1.5000pt 5.2500pt 1.5000pt 2.2500pt" valign="top" width="168">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: right; vertical-align: top; margin: 0.0000pt" align="right"><strong><span style="font-family: sans-serif; color: #666666; letter-spacing: 0.0000pt; font-weight: bold; text-transform: none; font-style: normal; font-size: 12.0000pt">Server time:</span></strong></p>
+</td>
+<td style="width: 1271.2500pt; padding: 1.5000pt 2.2500pt 1.5000pt 2.2500pt" valign="top" width="1695">
+<p class="MsoNormal" style="text-indent: 0.0000pt; text-align: left; vertical-align: top; margin: 0.0000pt"><span style="font-family: sans-serif; color: #000000; letter-spacing: 0.0000pt; font-weight: normal; text-transform: none; font-style: normal; font-size: 12.0000pt">Thu, 6 Apr 2017 20:36:13 -0700</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal" style="text-align: left"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">问题可能在于用户启动问题</span> &nbsp;&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">（</span>Ps<span style="font-family: 微软雅黑">：本人曾将使用</span><span style="font-family: Calibri">root</span><span style="font-family: 微软雅黑">用户启动但是无果无法启动 &nbsp;目前还未找到原因）</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">所以用</span>hadoop<span style="font-family: 微软雅黑">用户启动</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">给</span>hadoop<span style="font-family: 微软雅黑">用户授权</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt">chown -R hadoop.hadoop /home/hadoop/hue</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150230047-56239894.jpg" alt="" width="501" height="53"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150230579-2067967940.jpg" alt="" width="554" height="425"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150231157-1980305456.jpg" alt="" width="554" height="231"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">出现这个界面问题来了：</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">用户名密码是什么</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">按照默认的输入用户名</span>admin <span style="font-family: 微软雅黑">密码</span><span style="font-family: Calibri">admin</span></span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150231469-1064293599.jpg" alt="" width="554" height="221"><span style="font-family: 微软雅黑; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">唯一可能就是在上边你设置</span>MySQL<span style="font-family: 微软雅黑">时候设置的远程连接用户</span></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">本人设置的就是</span> root &nbsp;root<span style="font-family: 微软雅黑">（在设置完</span><span style="font-family: Calibri">MySQL</span></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">密码策略</span></span><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">设置后自己更改的）</span></span></p>
+<p class="MsoNormal"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/1079472-20170410150232172-766910953.jpg" alt="" width="553" height="258"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">成功</span></span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<table class="MsoNormalTable" style="border-collapse: collapse; width: 418.2000pt; margin-left: 3.9000pt">
+<tbody>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hue<span style="font-family: 微软雅黑">配置段</span></span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: 1.0000pt solid #dddddd; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hue<span style="font-family: 微软雅黑">配置项</span></span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: 1.0000pt solid #dddddd; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hue<span style="font-family: 微软雅黑">配置值</span></span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: 1.0000pt solid #dddddd; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">说明</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">desktop</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">default_hdfs_superuser</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">HDFS<span style="font-family: 微软雅黑">管理用户</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">desktop</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">http_host</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">10.10.4.125</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hue Web Server<span style="font-family: 微软雅黑">所在主机</span><span style="font-family: Calibri">/IP</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">desktop</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">http_port</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">8000</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hue Web Server<span style="font-family: 微软雅黑">服务端口</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">desktop</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">server_user</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">运行<span style="font-family: Calibri">Hue Web Server</span><span style="font-family: 微软雅黑">的进程用户</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">desktop</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">server_group</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">运行<span style="font-family: Calibri">Hue Web Server</span><span style="font-family: 微软雅黑">的进程用户组</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">desktop</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">default_user</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">yanjun</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hue<span style="font-family: 微软雅黑">管理员</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/hdfs_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">fs_defaultfs</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hdfs://hadoop6:8020</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">对应<span style="font-family: Calibri">core-site.xml</span><span style="font-family: 微软雅黑">配置项</span><span style="font-family: Calibri">fs.defaultFS</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/hdfs_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop_conf_dir</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">/usr/local/hadoop/etc/hadoop</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hadoop<span style="font-family: 微软雅黑">配置文件目录</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/yarn_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">resourcemanager_host</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop6</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">对应<span style="font-family: Calibri">yarn-site.xml</span><span style="font-family: 微软雅黑">配置项</span><span style="font-family: Calibri">yarn.resourcemanager.hostname</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/yarn_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">resourcemanager_port</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">8032</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">ResourceManager<span style="font-family: 微软雅黑">服务端口号</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/yarn_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">resourcemanager_api_url</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">http://hadoop6:8088</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">对应于<span style="font-family: Calibri">yarn-site.xml</span><span style="font-family: 微软雅黑">配置项</span><span style="font-family: Calibri">yarn.resourcemanager.webapp.address</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/yarn_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">proxy_api_url</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">http://hadoop6:8888</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">对应<span style="font-family: Calibri">yarn-site.xml</span><span style="font-family: 微软雅黑">配置项</span><span style="font-family: Calibri">yarn.web-proxy.address</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hadoop/yarn_clusters</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">history_server_api_url</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">http://hadoo6:19888</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">对应<span style="font-family: Calibri">mapred-site.xml</span><span style="font-family: 微软雅黑">配置项</span><span style="font-family: Calibri">mapreduce.jobhistory.webapp.address</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">beeswax</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hive_server_host</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">10.10.4.125</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hive<span style="font-family: 微软雅黑">所在节点主机名</span><span style="font-family: Calibri">/IP</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">beeswax</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hive_server_port</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">10000</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">HiveServer2<span style="font-family: 微软雅黑">服务端口号</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 78.5500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: 1.0000pt solid #dddddd; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="104">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">beeswax</span></p>
+</td>
+<td style="width: 91.8500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="122">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">hive_conf_dir</span></p>
+</td>
+<td style="width: 109.3500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="145">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">/usr/local/hive/conf</span></p>
+</td>
+<td style="width: 138.4500pt; padding: 1.5000pt 1.5000pt 1.5000pt 1.5000pt; border-left: none; border-right: 1.0000pt solid #dddddd; border-top: none; border-bottom: 1.0000pt solid #dddddd" valign="top" width="184">
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">Hive<span style="font-family: 微软雅黑">配置文件目录</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal">本文章有很多不足之处，希望大家多多指正。欢迎大家转载，请注明出处！码农打字不易，敬请谅解，谢谢！<a id="Editor_Edit_hlEntryLink" title="view: centos7 hue安装" href="http://www.cnblogs.com/baierfa/p/6689107.html" target="_blank">http://www.cnblogs.com/baierfa/p/6689107.html</a>&nbsp;</p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">参考最多：</span></span></p>
+<p class="MsoNormal"><span><a href="http://blog.csdn.net/wenlong237/article/details/19735603"><span style="text-decoration: underline"><span class="15" style="font-family: &quot;Times New Roman&quot;; color: #0000ff; text-decoration: underline">http://blog.csdn.net/wenlong237/article/details/19735603</span></span></a></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">官方参考地址</span></span></p>
+<p class="MsoNormal"><span><a href="https://github.com/cloudera/hue"><span style="text-decoration: underline"><span class="15" style="font-family: &quot;Times New Roman&quot;; color: #0000ff; text-decoration: underline">https://github.com/cloudera/hue</span></span></a></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">官方</span>hue<span style="font-family: 微软雅黑">配置文件参考</span></span></p>
+<p class="MsoNormal"><span><a href="http://cloudera.github.io/hue/docs-3.8.0/manual.html"><span style="text-decoration: underline"><span class="15" style="font-family: &quot;Times New Roman&quot;; color: #0000ff; text-decoration: underline">http://cloudera.github.io/hue/docs-3.8.0/manual.html</span></span></a></span></p>
+<p class="MsoNormal"><span style="font-family: 微软雅黑; font-size: 10.5000pt"><span style="font-family: 微软雅黑">一般参考</span></span></p>
+<p class="MsoNormal"><span><a href="http://www.cnblogs.com/smartloli/p/4527168.html"><span style="text-decoration: underline"><span class="15" style="font-family: &quot;Times New Roman&quot;; color: #0000ff; text-decoration: underline">http://www.cnblogs.com/smartloli/p/4527168.html</span></span></a></span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">http://blog.cheyo.net/81.html</span></p>
+<p class="MsoNormal"><span style="font-family: Calibri; font-size: 10.5000pt">&nbsp;</span></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/baierfa/category/981689.html" target="_blank">CDH</a></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/baierfa/tag/centos7/">centos7</a>, <a href="https://www.cnblogs.com/baierfa/tag/hue%E5%AE%89%E8%A3%85/">hue安装</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6689107,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;1124f0ad-5ec0-e611-845c-ac853d9f53ac&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/baierfa/" target="_blank"><img src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/20170119133412.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/baierfa/">改进的拜耳法</a><br>
+            <a href="http://home.cnblogs.com/u/baierfa/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/baierfa/followers">粉丝 - 0</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;1124f0ad-5ec0-e611-845c-ac853d9f53ac&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6689107,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(6689107,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/baierfa/p/6689056.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/baierfa/p/6689056.html" title="发布于2017-04-10 14:56">Kafka监控安装</a><br><a href="https://www.cnblogs.com/baierfa/p/8334524.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/baierfa/p/8334524.html" title="发布于2018-01-23 10:52">对于hive使用的一点记录</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2017-04-10 15:03</span> <a href="https://www.cnblogs.com/baierfa/">改进的拜耳法</a> 阅读(<span id="post_view_count">1767</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6689107" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/baierfa/p/6689107.html#" onclick="AddToWz(6689107);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=322310,cb_entryId=6689107,cb_blogApp=currentBlogApp,cb_blogUserGuid='1124f0ad-5ec0-e611-845c-ac853d9f53ac',cb_entryCreatedDate='2017/4/10 15:03:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/baierfa/p/6689107.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/baierfa/p/6689107.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型组态工控、电力仿真CAD与GIS源码库！</a><br><a href="http://edu.51cto.com/center/activity/wejob/index?qd=bky" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-51cto&#39;)">【活动】11.1-11.11，3000元神券限量开抢，51CTO全场课程5折起，还送精美礼品！</a><br><a href="http://clickc.admaster.com.cn/c/a116493,b2949399,c1705,i0,m101,8a1,8b3,h" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-华为云&#39;)">【推荐】华为云11.11普惠季 血拼风暴 一促即发</a><br><a href="https://www.grapecity.com.cn/developer/spreadjs?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-SpreadJS&#39;)">【工具】SpreadJS纯前端表格控件，可嵌入应用开发的在线Excel</a><br><a href="https://cloud.tencent.com/act/group/amd/index?fromSource=gwzcw.1608278.1608278.1608278" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-腾讯云&#39;)">【腾讯云】拼团福利，AMD云服务器8元/月</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cloud.tencent.com/act/double11?fromSource=gwzcw.1608279.1608279.1608279" target="_blank"><img width="300" height="250" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/24442-20181105150013344-185546354.jpg" alt="腾讯云1105" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;C1&#39;);"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/611622/" target="_blank">拼多多「All In」综艺，「病毒式」赞助图什么？</a><br> ·  <a href="https://news.cnblogs.com/n/611620/" target="_blank">马斯克，特斯拉首席小白鼠</a><br> ·  <a href="https://news.cnblogs.com/n/611619/" target="_blank">“花心”B站，能否只拿钱不站队？</a><br> ·  <a href="https://news.cnblogs.com/n/611618/" target="_blank">无人管道物流近在咫尺？京东拟在雄安推行</a><br> ·  <a href="https://news.cnblogs.com/n/611617/" target="_blank">英特尔起草新数据隐私法 保护好用户数据可免遭罚款</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<script async="async" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CJTu37DCw94CFdYYKgodLPACQA">
+    <script>
+    if (new Date() >= new Date(2018, 9, 13)) {
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1539008685004-0'); });
+    }
+    </script>
+    <div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="https://kb.cnblogs.com/page/611018/" target="_blank">程序员：用代码改变世界</a><br> ·  <a href="https://kb.cnblogs.com/page/609730/" target="_blank">阿里云的这群疯子</a><br> ·  <a href="https://kb.cnblogs.com/page/606682/" target="_blank">为什么说 Java 程序员必须掌握 Spring Boot ？</a><br> ·  <a href="https://kb.cnblogs.com/page/606645/" target="_blank">在学习中，有一个比掌握知识更重要的能力</a><br> ·  <a href="https://kb.cnblogs.com/page/603663/" target="_blank">如何招到一个靠谱的程序员</a><br></div>» <a href="https://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/baierfa/">改进的拜耳法</a><br>园龄：<a href="https://home.cnblogs.com/u/baierfa/" title="入园时间：2016-12-12">1年10个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/baierfa/followers/">0</a><br>关注：<a href="https://home.cnblogs.com/u/baierfa/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;1124f0ad-5ec0-e611-845c-ac853d9f53ac&#39;)">+加关注</a></div><script>getFollowStatus('1124f0ad-5ec0-e611-845c-ac853d9f53ac')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/09/01&#39;);return false;">&lt;</a></td><td align="center">2018年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalTodayDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/baierfa/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/baierfa/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/baierfa/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/baierfa/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/baierfa/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/baierfa/tag/centos7/">centos7</a>(2)</li><li><a href="https://www.cnblogs.com/baierfa/tag/ganglia/">ganglia</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/hue%E5%AE%89%E8%A3%85/">hue安装</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/kafka%E7%9B%91%E6%8E%A7/">kafka监控</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/nagios/">nagios</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/zabbix/">zabbix</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/%E5%AE%89%E8%A3%85/">安装</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/%E5%AE%89%E8%A3%85Kafka%20Manager/">安装Kafka Manager</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/%E5%AE%89%E8%A3%85KafkaOffsetMonito/">安装KafkaOffsetMonito</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/%E5%88%86%E8%AF%8D%E5%99%A8/">分词器</a>(1)</li><li><a href="https://www.cnblogs.com/baierfa/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/baierfa/category/981689.html">CDH(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/baierfa/category/924533.html">Ganglia(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/baierfa/category/922934.html">hadoop(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/baierfa/category/922935.html">mapreduce</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/baierfa/category/922933.html">maven(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/baierfa/category/922939.html">分词器(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/baierfa/category/981686.html">监控软件(1)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="https://www.cnblogs.com/baierfa/archive/2018/01.html">2018年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="https://www.cnblogs.com/baierfa/archive/2017/04.html">2017年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="https://www.cnblogs.com/baierfa/archive/2016/12.html">2016年12月 (3)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_articlecategory" class="catListArticleCategory sidebar-block">
+<h3 class="catListTitle">文章分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="https://www.cnblogs.com/baierfa/category/981688.html">cdh</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/baierfa/p/6688737.html#3822903">1. Re:centos7+cdh5.10.0搭建</a></li>
+        <li class="recent_comment_body">@改进的拜耳法感谢您的回复，您的博客介绍安装过程详细，并且我在构建过程中也采用了centos7.2+cdh5.10.0，因此，非常具有借鉴性，我的问题已经解决了，再次感谢。...</li>
+        <li class="recent_comment_author">--云游小猪娃</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/baierfa/p/6688737.html#3818847">2. Re:centos7+cdh5.10.0搭建</a></li>
+        <li class="recent_comment_body">@云游小猪娃非常抱歉这么久才回您的信息 ，很感谢你查看了我的博客并按照上面写的步骤安装！虽然隔了这么久不知道您的是否解决，还是建议一下这个问题的原因很有可能是在基础配置时没有完全与其他机器配置做到统一......</li>
+        <li class="recent_comment_author">--改进的拜耳法</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/baierfa/p/6688737.html#3761318">3. Re:centos7+cdh5.10.0搭建</a></li>
+        <li class="recent_comment_body">您好，在cloudera manager-Cluster installation“分发parcels到各个节点”步骤出现了一个server cluster一直卡在Activating状态，但其它cl......</li>
+        <li class="recent_comment_author">--云游小猪娃</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/baierfa/p/6689107.html">1. centos7 hue安装(1791)</a></li><li><a href="https://www.cnblogs.com/baierfa/p/6688737.html">2. centos7+cdh5.10.0搭建(1314)</a></li><li><a href="https://www.cnblogs.com/baierfa/p/6169246.html">3. Anjs分词器以及关键词抓取使用的方法(1031)</a></li><li><a href="https://www.cnblogs.com/baierfa/p/6689056.html">4. Kafka监控安装(263)</a></li><li><a href="https://www.cnblogs.com/baierfa/p/6688145.html">5. nagios与zabbix对比(145)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/baierfa/p/6688737.html">1. centos7+cdh5.10.0搭建(3)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap" style="display: none;">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer" chromeappversion="3.1.0">
+		
+<!--done-->
+Copyright ©2018 改进的拜耳法
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+<iframe id="google_osd_static_frame_5595900621848" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./centos7 hue安装 - 改进的拜耳法 - 博客园_files/saved_resource(1).html"></iframe></body></html>

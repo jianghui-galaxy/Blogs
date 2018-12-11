@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.cnblogs.com/smartloli/p/4527168.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+<title>高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园</title>
+<meta property="og:description" content="1.概述 前面一篇博客《高可用Hadoop平台－Ganglia安装部署》，为大家介绍了Ganglia在Hadoop中的集成，今天为大家介绍另一款工具——Hue，该工具功能比较丰富，下面是今天为大家分享">
+<link type="text/css" rel="stylesheet" href="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/bundle-darkgreentrip.css">
+<link type="text/css" rel="stylesheet" href="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/196182.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/bundle-darkgreentrip-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/smartloli/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/smartloli/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/smartloli/wlwmanifest.xml">
+<script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/hm.js"></script><script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/f.txt"></script><script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/amp4ads-host-v0.js"></script><script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/pubads_impl_rendering_273.js"></script><script async="" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/encoder.js"></script><script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">var currentBlogApp = 'smartloli', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<link rel="preload" href="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/f(1).txt" as="script"><script type="text/javascript" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/f(1).txt"></script><script src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/pubads_impl_273.js" async=""></script></head>
+<body style="">
+<a name="top"></a>
+<div id="page_begin_html"><script type="text/javascript">window['__document_write_ajax_callbacks__']['2']();</script><script>window['__document_write_ajax_callbacks__']['1']();</script></div><script>load_page_begin_html();</script>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/smartloli/"><img id="blogLogo" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/smartloli/">哥不是小萝莉</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/smartloli/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%93%A5%E4%B8%8D%E6%98%AF%E5%B0%8F%E8%90%9D%E8%8E%89">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/smartloli/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/smartloli/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 117&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 321</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/smartloli/p/4527168.html">高可用Hadoop平台－Hue In Hadoop</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><h1>1.概述</h1>
+<p>　　前面一篇博客《<a id="homepage1_HomePageDays_ctl00_DayList_TitleUrl_0" class="postTitle2" href="http://www.cnblogs.com/smartloli/p/4519914.html">高可用Hadoop平台－Ganglia安装部署</a>》，为大家介绍了Ganglia在Hadoop中的集成，今天为大家介绍另一款工具——Hue，该工具功能比较丰富，下面是今天为大家分享的内容目录：</p>
+<ul>
+<li>Hue简述</li>
+<li>Hue In Hadoop</li>
+<li>截图预览</li>
+</ul>
+<p>　　本文所使用的环境是Apache Hadoop-2.6版本，下面开始今天的内容分享。</p>
+<h1>2.Hue简述</h1>
+<p>　　Hue是一个开源的Apache Hadoop UI系统，由Cloudera Desktop演化而来，最后Cloudera公司将其贡献给Apache基金会的Hadoop社区，它是基于Python Web框架Django实现的。通过使用Hue我们可以在浏览器端的Web控制台上与Hadoop集群进行交互来分析处理数据，例如操作HDFS上的数据，运行MapReduce Job，执行Hive的SQL语句，浏览HBase数据库等等。</p>
+<p>　　Hue在数据库方面，默认使用的是SQLite数据库来管理自身的数据，包括用户认证和授权，另外，可以自定义为MySQL数据库、Postgresql数据库、以及Oracle数据库。其自身的功能包含有：</p>
+<ul>
+<li>对HDFS的访问，通过浏览器来查阅HDFS的数据。</li>
+<li>Hive编辑器：可以编写HQL和运行HQL脚本，以及查看运行结果等相关Hive功能。</li>
+<li>提供Solr搜索应用，并对应相应的可视化数据视图以及DashBoard。</li>
+<li>提供Impala的应用进行数据交互查询。</li>
+<li>最新的版本集成了Spark编辑器和DashBoard</li>
+<li>支持Pig编辑器，并能够运行编写的脚本任务。</li>
+<li>Oozie调度器，可以通过DashBoard来提交和监控Workflow、Coordinator以及Bundle。</li>
+<li>支持HBase对数据的查询修改以及可视化。</li>
+<li>支持对Metastore的浏览，可以访问Hive的元数据以及对应的HCatalog。</li>
+<li>另外，还有对Job的支持，Sqoop，ZooKeeper以及DB（MySQL，SQLite，Oracle等）的支持。</li>
+</ul>
+<p>　　下面就通过集成部署，来预览相关功能。</p>
+<h1>3.Hue In Hadoop</h1>
+<p>　　本文所使用的Hadoop环境是基于Apache社区版的Hadoop2.6，在集成到Hadoop上，Hue的部署过程是有点复杂的。Hue在CDH上是可以轻松的集成的，我们在使用CDH的那套管理系统是，可以非常容易的添加Hue的相关服务。然而，在实际业务场景中，往往Hadoop集群使用的并非都是CDH版的，在Cloudera公司使用将其贡献给Apache基金会后，在Hadoop的集成也有了较好的改善，下面就为大家介绍如何去集成到Apache的社区版Hadoop上。</p>
+<h2>3.1基础软件</h2>
+<p>　　在集成Hue工具时，我们需要去下载对应的源码，该系统是开源免费的，可以在GitHub上下载到对应的源码，下载地址如下所示：</p>
+<div class="cnblogs_code">
+<pre>git@github.com:cloudera/hue.git</pre>
+</div>
+<p>　　我们使用Git命令将其克隆下来，命令如下所示：</p>
+<div class="cnblogs_code">
+<pre>git clone git@github.com:cloudera/hue.git</pre>
+</div>
+<p>　　然后，我们在Hadoop账号下安装Hue需要的依赖环境，命令如下所示：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">sudo</span> <span style="color: #0000ff;">yum</span> <span style="color: #0000ff;">install</span> krb5-devel cyrus-sasl-gssapi cyrus-sasl-deve libxml2-devel libxslt-devel mysql mysql-devel openldap-devel python-devel python-simplejson sqlite-devel</pre>
+</div>
+<p>　　等待其安装完毕。</p>
+<h2>3.2编译部署</h2>
+<p>　　在基础环境准备完成后，我们开始对Hue的源码进行编译，编译的时候，Python的版本需要是2.6+以上，不然在编译的时候会出现错误，编译命令如下所示：</p>
+<div class="cnblogs_code">
+<pre>[hadoop@nna ~<span style="color: #000000;">]$ cd hue
+[hadoop@nna </span>~]$ <span style="color: #0000ff;">make</span> apps</pre>
+</div>
+<p>　　等待其编译完成，在编译的过程中有可能会出现错误，在出现错误时Shell控制台会提示对应的错误信息，大家可以根据错误信息的提示来解决对应的问题，在编译完成后，我们接下来需要对其做对应的配置，Hue的默认配置是启动本地的Web服务，这个我们需要对其修改，供外网或者内网去访问其Web服务地址，我们在Hue的根目录下的desktop/conf文件夹下加pseudo-distributed.ini文件，然后我们对新增的文件添加如下内容：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">vi</span> pseudo-distributed.ini</pre>
+</div>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[desktop]
+http_host</span>=<span style="color: #800080;">10.211</span>.<span style="color: #800080;">55.28</span><span style="color: #000000;">
+http_port</span>=<span style="color: #800080;">8000</span><span style="color: #000000;">
+[hadoop]
+    [[hdfs_clusters]]
+        [[[default]]]
+            fs_defaultfs</span>=hdfs:<span style="color: #008000;">//</span><span style="color: #008000;">cluster1</span>
+            logical_name=<span style="color: #000000;">cluster1
+            webhdfs_url</span>=http:<span style="color: #008000;">//</span><span style="color: #008000;">10.211.55.26:50070/webhdfs/v1</span>
+            hadoop_conf_dir=/home/hadoop/hadoop-<span style="color: #800080;">2.6</span>.<span style="color: #800080;">0</span>/etc/<span style="color: #000000;">hadoop
+[beeswax]
+    hive_server_host</span>=<span style="color: #800080;">10.211</span>.<span style="color: #800080;">55.17</span><span style="color: #000000;">
+    hive_server_port</span>=<span style="color: #800080;">10000</span><span style="color: #000000;">
+    # hive_conf_dir</span>=/home/hive/<span style="color: #000000;">warehouse
+[hbase]
+    hbase_clusters</span>=(cluster1|<span style="color: #800080;">10.211</span>.<span style="color: #800080;">55.26</span>:<span style="color: #800080;">9090</span><span style="color: #000000;">)
+    hbase_conf_dir</span>=/home/hadoop/hbase-<span style="color: #800080;">1.0</span>.<span style="color: #800080;">1</span>/conf</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　关于Hue的详细和更多配置需要，大家可以参考官方给的知道文档，连接地址如下 所示：</p>
+<div class="cnblogs_code">
+<pre>http:<span style="color: #008000;">//</span><span style="color: #008000;">cloudera.github.io/hue/docs-3.8.0/manual.html</span></pre>
+</div>
+<p>　　这里，Hue的集成就完成了，下面可以输入启动命令来查看，命令如下所示：</p>
+<div class="cnblogs_code">
+<pre>[hadoop@nna ~]$ /root/hue-<span style="color: #800080;">3.7</span>.<span style="color: #800080;">1</span>/build/<span style="color: #0000ff;">env</span>/bin/supervisor &amp;</pre>
+</div>
+<p>　　启动信息如下所示：</p>
+<p><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250937016465220.png" alt=""></p>
+<p>　　下面，在浏览器中输入对应的访问地址，这里我配置的Port是8000，在第一次访问时，需要输入用户名和密码来创建一个Administrator，这里需要在一步的时候需要注意下。</p>
+<h1>4.截图预览</h1>
+<p>　　下面附上Hue的相应的截图预览，如下图所示：</p>
+<p><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250944450069979.png" alt=""></p>
+<p><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250944571316317.png" alt=""></p>
+<p><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250945105374912.png" alt=""></p>
+<p><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250945219436863.png" alt=""><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250945300372269.png" alt=""><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/250945387248490.png" alt=""></p>
+<h1>5.总结</h1>
+<p>　　在编译的时候，大家需要注意Hue的依赖环境，由于我们的Hadoop集群不是CDH版本的，所以在集成Hue的服务不能像CDH上那么轻松。在Apache的Hadoop社区版上集成部署，会需要对应的环境，若是缺少依赖，在编译的时候是会发生错误的。所以，这里需要特别留心注意，出错后，一般都会有提示信息的，大家可以根据提示检查定位出错误原因。</p>
+<h1>6.结束语</h1>
+<p>　　这篇博客就和大家分享到这里，如果大家在研究学习的过程当中有什么问题，可以加群进行讨论或发送邮件给我，我会尽我所能为您解答，与君共勉！</p></div><div id="MySignature" style="display: block;"><div>
+<b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1"></b>
+<div class="b d1 k">
+联系方式：
+<br>
+邮箱：smartloli.org@gmail.com
+<br>
+Twitter：<a href="https://twitter.com/smartloli" target="_blank">https://twitter.com/smartloli</a>
+<br>
+QQ群（Hadoop - 交流社区1）：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=b07c12828ed6963fe79078c78bbd1aba7e61b8f5d8fc5ee4ed26809f40b35c37">424769183</a>
+<br>
+温馨提示：请大家加群的时候写上加群理由（姓名＋公司/学校），方便管理员审核，谢谢！
+<br>
+<h3>热爱生活，享受编程，与君共勉！</h3>
+</div>
+<b class="b4b d1"></b><b class="b3b d1"></b><b class="b2b d1"></b><b class="b1b"></b>
+</div>
+<br>
+<div>
+<b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1"></b>
+<div class="b d1 k">
+<h3>作者：哥不是小萝莉 ［<a style="color: green" href="http://smartloli.org/" target="_blank">关于我</a>］［<a style="color: green" href="http://www.cnblogs.com/smartloli/p/4241701.html" target="_blank">犒赏</a>］</h3>
+<h3>出处：<a style="color: green" href="http://www.cnblogs.com/smartloli/" target="_blank">http://www.cnblogs.com/smartloli/</a></h3>
+<h3>转载请注明出处，谢谢合作！</h3>
+</div>
+<b class="b4b d1"></b><b class="b3b d1"></b><b class="b2b d1"></b><b class="b1b"></b>
+</div>
+<br>
+<div>
+<b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1"></b>
+<div class="b d1 k">
+<h3>公众号：</h3>
+<h3><img style="width: 8%; margin-left: 10px" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/t_qr.png"></h3>
+</div>
+<b class="b4b d1"></b><b class="b3b d1"></b><b class="b2b d1"></b><b class="b1b"></b>
+</div></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/smartloli/category/649544.html" target="_blank">hadoop</a></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/smartloli/tag/hadoop%20hue/">hadoop hue</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4527168,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;2305e391-302c-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/smartloli/" target="_blank"><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/20160512102357.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/smartloli/">哥不是小萝莉</a><br>
+            <a href="http://home.cnblogs.com/u/smartloli/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/smartloli/followers">粉丝 - 502</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;2305e391-302c-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4527168,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">4</span>
+    </div>
+    <div class="buryit" onclick="votePost(4527168,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/smartloli/p/4519914.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/smartloli/p/4519914.html" title="发布于2015-05-21 15:43">高可用Hadoop平台－Ganglia安装部署</a><br><a href="https://www.cnblogs.com/smartloli/p/4530117.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/smartloli/p/4530117.html" title="发布于2015-05-26 11:11">Kafka实战－入门</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-05-25 09:51</span> <a href="https://www.cnblogs.com/smartloli/">哥不是小萝莉</a> 阅读(<span id="post_view_count">24749</span>) 评论(<span id="post_comment_count">7</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4527168" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/smartloli/p/4527168.html#" onclick="AddToWz(4527168);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=196182,cb_entryId=4527168,cb_blogApp=currentBlogApp,cb_blogUserGuid='2305e391-302c-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2015/5/25 9:51:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3506596" class="layer">#1楼</a><a name="3506596" id="comment_anchor_3506596"></a>  <span class="comment_date">2016-09-09 10:12</span> <a id="a_comment_author_3506596" href="https://www.cnblogs.com/Lieber/" target="_blank">鱼香味的茄子</a> <a href="http://msg.cnblogs.com/send/%E9%B1%BC%E9%A6%99%E5%91%B3%E7%9A%84%E8%8C%84%E5%AD%90" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3506596" class="blog_comment_body">楼主把同一篇文章又放到了阿里云论坛上，要不是ID同一个意思，我还差点以为对方盗文……实力上搜索首页。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3506596,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3506596,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3506596_avatar" style="display:none;">http://pic.cnblogs.com/face/990342/20170915113308.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3507089" class="layer">#2楼</a><a name="3507089" id="comment_anchor_3507089"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-09-09 17:32</span> <a id="a_comment_author_3507089" href="https://www.cnblogs.com/smartloli/" target="_blank">哥不是小萝莉</a> <a href="http://msg.cnblogs.com/send/%E5%93%A5%E4%B8%8D%E6%98%AF%E5%B0%8F%E8%90%9D%E8%8E%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3507089" class="blog_comment_body"><a href="https://www.cnblogs.com/smartloli/p/4527168.html#3506596" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3506596);">@</a>
+鱼香味的茄子<br><fieldset class="comment_quote"><legend><a href="https://www.cnblogs.com/smartloli/p/4527168.html#3506596" title="查看引用原文">引用</a></legend>楼主把同一篇文章又放到了阿里云论坛上，要不是ID同一个意思，我还差点以为对方盗文……实力上搜索首页。</fieldset><br>嘿嘿，不好意思，给你造成了困扰。我修改下阿里云云栖社区的个人介绍。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3507089,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3507089,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3507089_avatar" style="display:none;">http://pic.cnblogs.com/face/666745/20160512102357.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3515999" class="layer">#3楼</a><a name="3515999" id="comment_anchor_3515999"></a>  <span class="comment_date">2016-09-21 13:27</span> <a id="a_comment_author_3515999" href="http://home.cnblogs.com/u/1029586/" target="_blank">jian8930</a> <a href="http://msg.cnblogs.com/send/jian8930" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3515999" class="blog_comment_body">咨询下hue界面怎么设置成中文的，我这全是英语，想国际化改成中文，改了LANGUAGE_CODE = 'zh_CN'，USE_I18N = True，USE_L10N = True，页面显示的还是英文</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3515999,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3515999,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3590403" class="layer">#4楼</a><a name="3590403" id="comment_anchor_3590403"></a>  <span class="comment_date">2016-12-27 12:01</span> <a id="a_comment_author_3590403" href="https://www.cnblogs.com/ae6623/" target="_blank">_落雨</a> <a href="http://msg.cnblogs.com/send/_%E8%90%BD%E9%9B%A8" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3590403" class="blog_comment_body"><a href="https://www.cnblogs.com/smartloli/p/4527168.html#3515999" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3515999);">@</a>
+jian8930<br>1.修改配置文件<br>vi /opt/soft/hadoop/hue-3.10.0/desktop/core/src/desktop/settings.py<br><br>LANGUAGE_CODE = 'zh_CN'<br>#LANGUAGE_CODE = 'en-us'<br><br>LANGUAGES = [<br>  ('en-us', _('English')),<br>  ('zh_CN', _('Simplified Chinese')),<br>]<br><br>2.重新编译<br>cd  /opt/soft/hadoop/hue-3.10.0<br>make apps<br><br>3.启动hue<br>cd  /opt/soft/hadoop/hue-3.10.0/build/env/bin/<br>supervisor &amp;<br><br>4.即可看到漂亮的中文界面<br><a href="http://192.168.186.xxx/" target="_blank">http://192.168.186.XXX</a>:8888<br><br>操作步骤截图详见 <a href="http://www.cnblogs.com/ae6623/p/6225379.html" target="_blank">http://www.cnblogs.com/ae6623/p/6225379.html</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3590403,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3590403,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3590403_avatar" style="display:none;">http://pic.cnblogs.com/face/162508/20150409115531.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3624143" class="layer">#5楼</a><a name="3624143" id="comment_anchor_3624143"></a>  <span class="comment_date">2017-02-22 16:44</span> <a id="a_comment_author_3624143" href="http://home.cnblogs.com/u/1111367/" target="_blank">LJade</a> <a href="http://msg.cnblogs.com/send/LJade" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3624143" class="blog_comment_body"><a href="https://www.cnblogs.com/smartloli/p/4527168.html#3515999" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3515999);">@</a>
+jian8930<br>你最后弄好了吗，我也是这个问题....</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3624143,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3624143,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3783480" class="layer">#6楼</a><a name="3783480" id="comment_anchor_3783480"></a>  <span class="comment_date">2017-09-13 18:55</span> <a id="a_comment_author_3783480" href="https://www.cnblogs.com/reed/" target="_blank">loulley</a> <a href="http://msg.cnblogs.com/send/loulley" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3783480" class="blog_comment_body"><a href="https://www.cnblogs.com/smartloli/p/4527168.html#3590403" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3590403);">@</a>
+_落雨<br>试了，不行</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3783480,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3783480,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3783480_avatar" style="display:none;">http://pic.cnblogs.com/face/u342677.jpg?id=14124925</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/smartloli/p/4527168.html#3783486" class="layer">#7楼</a><a name="3783486" id="comment_anchor_3783486"></a><span id="comment-maxId" style="display:none;">3783486</span><span id="comment-maxDate" style="display:none;">2017/9/13 19:07:28</span>  <span class="comment_date">2017-09-13 19:07</span> <a id="a_comment_author_3783486" href="https://www.cnblogs.com/reed/" target="_blank">loulley</a> <a href="http://msg.cnblogs.com/send/loulley" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3783486" class="blog_comment_body"><a href="https://www.cnblogs.com/smartloli/p/4527168.html#3590403" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3590403);">@</a>
+_落雨<br><img src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/342677-20170913190713328-1769311719.png" alt="" border="0" "=""><br>只有个别汉化了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3783486,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3783486,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3783486_avatar" style="display:none;">http://pic.cnblogs.com/face/u342677.jpg?id=14124925</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/smartloli/p/4527168.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/smartloli/p/4527168.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型组态工控、电力仿真CAD与GIS源码库！</a><br><a href="http://edu.51cto.com/center/activity/wejob/index?qd=bky" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-51cto&#39;)">【活动】11.1-11.11，3000元神券限量开抢，51CTO全场课程5折起，还送精美礼品！</a><br><a href="http://clickc.admaster.com.cn/c/a116493,b2949399,c1705,i0,m101,8a1,8b3,h" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-华为云&#39;)">【推荐】华为云11.11普惠季 血拼风暴 一促即发</a><br><a href="https://www.grapecity.com.cn/developer/spreadjs?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-SpreadJS&#39;)">【工具】SpreadJS纯前端表格控件，可嵌入应用开发的在线Excel</a><br><a href="https://cloud.tencent.com/act/group/amd/index?fromSource=gwzcw.1608278.1608278.1608278" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-腾讯云&#39;)">【腾讯云】拼团福利，AMD云服务器8元/月</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cloud.tencent.com/act/double11?fromSource=gwzcw.1608279.1608279.1608279" target="_blank"><img width="300" height="250" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/24442-20181105150013344-185546354.jpg" alt="腾讯云1105" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;C1&#39;);"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/611622/" target="_blank">拼多多「All In」综艺，「病毒式」赞助图什么？</a><br> ·  <a href="https://news.cnblogs.com/n/611620/" target="_blank">马斯克，特斯拉首席小白鼠</a><br> ·  <a href="https://news.cnblogs.com/n/611619/" target="_blank">“花心”B站，能否只拿钱不站队？</a><br> ·  <a href="https://news.cnblogs.com/n/611618/" target="_blank">无人管道物流近在咫尺？京东拟在雄安推行</a><br> ·  <a href="https://news.cnblogs.com/n/611617/" target="_blank">英特尔起草新数据隐私法 保护好用户数据可免遭罚款</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<script async="async" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CMiIxILDw94CFU0bKgod-yAL4g">
+    <script>
+    if (new Date() >= new Date(2018, 9, 13)) {
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1539008685004-0'); });
+    }
+    </script>
+    <div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="https://kb.cnblogs.com/page/611018/" target="_blank">程序员：用代码改变世界</a><br> ·  <a href="https://kb.cnblogs.com/page/609730/" target="_blank">阿里云的这群疯子</a><br> ·  <a href="https://kb.cnblogs.com/page/606682/" target="_blank">为什么说 Java 程序员必须掌握 Spring Boot ？</a><br> ·  <a href="https://kb.cnblogs.com/page/606645/" target="_blank">在学习中，有一个比掌握知识更重要的能力</a><br> ·  <a href="https://kb.cnblogs.com/page/603663/" target="_blank">如何招到一个靠谱的程序员</a><br></div>» <a href="https://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news">
+ 
+ 
+  <div>
+   <span style="font-weight: bold; font-size: 8pt; font-family: Verdana;">Hadoop大数据挖掘从入门到进阶实战</span>
+   <br>
+   <img alt="Hadoop大数据挖掘从入门到进阶实战" style="width:200px;" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/o_hadoop.png">
+   <br> 
+   <a style="font-weight: bold; font-size: 10pt; font-family: Verdana;color:#390;" href="https://item.jd.com/12371763.html" target="_blank">京东自营</a>&nbsp;&nbsp;
+   <a style="font-weight: bold; font-size: 10pt; font-family: Verdana;color:#390;" href="http://product.dangdang.com/25291685.html" target="_blank">当当自营</a>&nbsp;&nbsp;
+   <a style="font-weight: bold; font-size: 10pt; font-family: Verdana;color:#390;" href="https://www.amazon.cn/dp/B07DQ9SJ8C/" target="_blank">亚马逊自营</a>&nbsp;&nbsp; 
+   <!--<a style="font-weight: bold; font-size: 10pt; font-family: Verdana;color:#390;" href="http://item.yhd.com/12371763.html" target="_blank">1号店自营</a> -->
+  </div>  
+ 
+<div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/smartloli/">哥不是小萝莉</a><br>园龄：<a href="https://home.cnblogs.com/u/smartloli/" title="入园时间：2014-08-25">4年1个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/smartloli/followers/">493</a><br>关注：<a href="https://home.cnblogs.com/u/smartloli/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;2305e391-302c-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div><script>getFollowStatus('2305e391-302c-e411-b908-9dcfd8948a71')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/09/01&#39;);return false;">&lt;</a></td><td align="center">2018年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center"><a href="https://www.cnblogs.com/smartloli/archive/2018/10/21.html"><u>21</u></a></td><td align="center">22</td><td align="center">23</td><td class="CalTodayDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/smartloli/p/9826923.html">1. Kafka控制器选举流程剖析</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9649673.html">2. HBase Region合并分析</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9501887.html">3. HBase BulkLoad批量写入数据实战</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9462835.html">4. HBase查询优化之Short-Circuit Local Reads</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9425343.html">5. HBase查询优化</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9371904.html">6. Kafka监控系统Kafka Eagle剖析</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9249259.html">7. 剖析HBase负载均衡和性能指标</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9215435.html">8. Hadoop大数据挖掘从入门到进阶实战</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9191929.html">9. 实战Kafka ACL机制</a></li><li><a href="https://www.cnblogs.com/smartloli/p/9028267.html">10. Hadoop 3.x 新特性剖析系列2</a></li>
+</ul>
+</div>
+</div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(210)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/smartloli/category/712843.html">elasticsearch(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/smartloli/category/664225.html">git(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/smartloli/category/649544.html">hadoop(97)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/smartloli/category/656082.html">java(53)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/smartloli/category/663617.html">jenkins(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/smartloli/category/694246.html">kafka(30)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/smartloli/category/661720.html">MongoDB(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/smartloli/category/666820.html">other(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/smartloli/category/649611.html">python(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="https://www.cnblogs.com/smartloli/category/838046.html">spark(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="https://www.cnblogs.com/smartloli/category/702491.html">storm(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="https://www.cnblogs.com/smartloli/category/649545.html">thrift(2)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(117)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="https://www.cnblogs.com/smartloli/archive/2018/10.html">2018年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="https://www.cnblogs.com/smartloli/archive/2018/09.html">2018年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="https://www.cnblogs.com/smartloli/archive/2018/08.html">2018年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="https://www.cnblogs.com/smartloli/archive/2018/07.html">2018年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="https://www.cnblogs.com/smartloli/archive/2018/06.html">2018年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="https://www.cnblogs.com/smartloli/archive/2018/05.html">2018年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="https://www.cnblogs.com/smartloli/archive/2018/04.html">2018年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="https://www.cnblogs.com/smartloli/archive/2018/03.html">2018年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="https://www.cnblogs.com/smartloli/archive/2018/02.html">2018年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="https://www.cnblogs.com/smartloli/archive/2018/01.html">2018年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="https://www.cnblogs.com/smartloli/archive/2017/12.html">2017年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="https://www.cnblogs.com/smartloli/archive/2017/11.html">2017年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="https://www.cnblogs.com/smartloli/archive/2017/10.html">2017年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="https://www.cnblogs.com/smartloli/archive/2017/09.html">2017年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="https://www.cnblogs.com/smartloli/archive/2017/08.html">2017年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="https://www.cnblogs.com/smartloli/archive/2017/07.html">2017年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="https://www.cnblogs.com/smartloli/archive/2017/06.html">2017年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="https://www.cnblogs.com/smartloli/archive/2017/05.html">2017年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="https://www.cnblogs.com/smartloli/archive/2017/04.html">2017年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="https://www.cnblogs.com/smartloli/archive/2017/03.html">2017年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="https://www.cnblogs.com/smartloli/archive/2017/02.html">2017年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="https://www.cnblogs.com/smartloli/archive/2017/01.html">2017年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="https://www.cnblogs.com/smartloli/archive/2016/12.html">2016年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="https://www.cnblogs.com/smartloli/archive/2016/11.html">2016年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="https://www.cnblogs.com/smartloli/archive/2016/10.html">2016年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="https://www.cnblogs.com/smartloli/archive/2016/09.html">2016年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="https://www.cnblogs.com/smartloli/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="https://www.cnblogs.com/smartloli/archive/2016/07.html">2016年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="https://www.cnblogs.com/smartloli/archive/2016/06.html">2016年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="https://www.cnblogs.com/smartloli/archive/2016/05.html">2016年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="https://www.cnblogs.com/smartloli/archive/2016/04.html">2016年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="https://www.cnblogs.com/smartloli/archive/2016/03.html">2016年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="https://www.cnblogs.com/smartloli/archive/2016/02.html">2016年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="https://www.cnblogs.com/smartloli/archive/2016/01.html">2016年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="https://www.cnblogs.com/smartloli/archive/2015/12.html">2015年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="https://www.cnblogs.com/smartloli/archive/2015/11.html">2015年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="https://www.cnblogs.com/smartloli/archive/2015/10.html">2015年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="https://www.cnblogs.com/smartloli/archive/2015/09.html">2015年9月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="https://www.cnblogs.com/smartloli/archive/2015/08.html">2015年8月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="https://www.cnblogs.com/smartloli/archive/2015/07.html">2015年7月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="https://www.cnblogs.com/smartloli/archive/2015/06.html">2015年6月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="https://www.cnblogs.com/smartloli/archive/2015/05.html">2015年5月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="https://www.cnblogs.com/smartloli/archive/2015/04.html">2015年4月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="https://www.cnblogs.com/smartloli/archive/2015/03.html">2015年3月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="https://www.cnblogs.com/smartloli/archive/2015/02.html">2015年2月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="https://www.cnblogs.com/smartloli/archive/2015/01.html">2015年1月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="https://www.cnblogs.com/smartloli/archive/2014/12.html">2014年12月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	259605
+	</li>
+	<li class="liRank">
+		排名 -	961
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/smartloli/p/9028267.html#4095763">1. Re:Hadoop 3.x 新特性剖析系列2</a></li>
+        <li class="recent_comment_body">想问一下作者为什么把Opportunistic Containers理解为等待容器呢？</li>
+        <li class="recent_comment_author">--笨小康walker</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/smartloli/p/9826923.html#4095298">2. Re:Kafka控制器选举流程剖析</a></li>
+        <li class="recent_comment_body">@AndyZft谢谢支持...</li>
+        <li class="recent_comment_author">--哥不是小萝莉</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/smartloli/p/9826923.html#4095297">3. Re:Kafka控制器选举流程剖析</a></li>
+        <li class="recent_comment_body">赞，分析的很好 👍</li>
+        <li class="recent_comment_author">--XPPMS</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/smartloli/p/9826923.html#4095260">4. Re:Kafka控制器选举流程剖析</a></li>
+        <li class="recent_comment_body">支持大神，感谢分享</li>
+        <li class="recent_comment_author">--AndyZft</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/smartloli/p/9371904.html#4092167">5. Re:Kafka监控系统Kafka Eagle剖析</a></li>
+        <li class="recent_comment_body">登录账号密码是啥 我访问怎么要用户名和密码啊</li>
+        <li class="recent_comment_author">--nielinqi</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/smartloli/p/4356660.html">1. Hive性能优化(36248)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4305739.html">2. 高可用的MongoDB集群(28205)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4527168.html">3. 高可用Hadoop平台－Hue In Hadoop(24784)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4543211.html">4. Kafka实战－简单示例(22095)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/5829395.html">5. Kafka 消息监控 - Kafka Eagle(20725)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/smartloli/p/5829395.html">1. Kafka 消息监控 - Kafka Eagle(56)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4298430.html">2. 配置高可用的Hadoop平台(17)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/6490643.html">3. Kafka Eagle 源码解读(16)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4810362.html">4. JStorm－介绍(11)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4272705.html">5. 网站日志统计案例分析与实现(8)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/smartloli/p/4272705.html">1. 网站日志统计案例分析与实现(18)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4298430.html">2. 配置高可用的Hadoop平台(13)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4305739.html">3. 高可用的MongoDB集群(12)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/4356660.html">4. Hive性能优化(10)</a></li><li><a href="https://www.cnblogs.com/smartloli/p/5829395.html">5. Kafka 消息监控 - Kafka Eagle(9)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer" chromeappversion="3.1.0">
+		
+<!--done-->
+Copyright ©2018 哥不是小萝莉
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+<iframe id="google_osd_static_frame_3003194684173" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./高可用Hadoop平台－Hue In Hadoop - 哥不是小萝莉 - 博客园_files/saved_resource(1).html"></iframe><script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?de25eb9ee20460fa7031c97a45632176";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script></body></html>
